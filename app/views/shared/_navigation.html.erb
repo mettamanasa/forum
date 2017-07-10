@@ -1,0 +1,48 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-top:10px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4"><%= image_tag "abc.png" %></div>
+      <div class="col-md-1" id="buttons"></div>
+      <div class="col-md-1" id="search-buttons" class="icon">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+        <% if user_signed_in? %>
+          <div class="col-md-1"><%= link_to "New Post", new_post_path, class: 'btn btn-success'%></div>
+          <div class="col-md-1"><%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-info', method: :delete %>
+          </div>
+        <% end %>
+       <% if !user_signed_in? %>
+          <div class="col-md-1"> <%= link_to "Sign Up", new_user_registration_path, class:'btn btn-info'%>
+          </div>
+          <div class="col-md-1"> <%= link_to "Log In", new_user_session_path, class:'btn btn-info'%>
+          </div>
+        <% end %>
+        <div class="col-md-1">
+         <a class="btn btn-lg active dropdown dropdown-toggle" data-toggle="dropdown"> 
+         <span class="glyphicon glyphicon-search"></span> 
+          <div class="buttons dropdown-menu">
+            <%= form_for posts_path, :method => 'get', role: "search" do %>
+              <p>
+                <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+                <%= submit_tag "Search", name: nil, :class => "button" %>
+              </p>
+            <% end %>
+            <%= link_to "options" , new_search_path %>
+          </div>      
+        </div>
+        <div class="col-md-1">
+            <a class="btn btn-lg active" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-align-justify"></span>
+                  <ul class="dropdown-menu">
+                      <a href="https://metaruby.com/faq"><li>About</li></a>
+                      <a href="https://metaruby.com/about"><li>FAQ</li></a>
+                      <a href="https://metaruby.com/tos"><li>Terms Of Service</li></a>
+                      <a href="https://metaruby.com/privacy"><li>Privacy</li></a>
+                  </ul>
+              </a>
+          </div> 
+    </div>
+  </div>
+</nav>
+
+

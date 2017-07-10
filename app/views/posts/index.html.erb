@@ -1,0 +1,61 @@
+<div class="container" id="posts">
+	<div class="row">
+	    <div class="col-md-2 active dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown">all categories<span class="caret"></span></a>
+	        <ul class="dropdown-menu">
+	          	<li class="category">Categories</li>
+					<% List.all.each do |list| %>
+					    <li><%= link_to list.name , posts_path(list_id: list.id) %></li>
+					<% end %></br>
+				 	<%= link_to "Create category", new_list_path, :class => "button"  %> 
+	        </ul>
+	    </div>
+		<div class="col-md-1" id="buttons"><span class="           has-tooltip" data-toggle="tooltip" title="     topics with recent posts"><%= link_to "latest", posts_path(order:'DESC'), class: 'btn btn-danger'  %>  </span>
+		</div>
+		<div class="col-md-1 btn btn-link has-popover"
+		  id="buttons" data-toggle="popover" title="Categories list" data-content="<% @posts.each do |post|%>
+					       <li><%= post.list.name %></li>
+							<% end %>">Categories
+		</div>
+		<div class="col-md-9"></div>
+		</div></br>
+		<table class="table">
+		    <thead>
+		      <tr>
+		        <th>Topic</th>
+		        <th>Category</th>
+		        <th>Users</th>
+		        <th>Replies</th>
+		        <th>Activity</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr>
+			    <% @posts.each do |post|%>
+				    <div class="post"> 
+						<tr></tr>
+						<td><h4 class="title">
+						    <%= link_to post.title, post %>
+							</h4>
+						</td>
+						<td><%= post.list.name %></td>
+						<td>
+						<span class="has-tooltip" data-toggle="tooltip" title="<%= "#{post.name }" %>">
+           						<%= image_tag post.image.url(:thumb) %>
+                              </span>
+							</td>
+						<td><%= post.comments.count %></td>
+						<td><p class="date">
+						    <%= time_ago_in_words(post.created_at) %></p>
+						</td>
+					</div>
+				<% end %>
+		      </tr>
+		    </tbody>
+        </table>
+</div>
+	<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
